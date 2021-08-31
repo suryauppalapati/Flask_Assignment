@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body%}
+<div class="container my-4">
+    <h3>Add your Todo</h3>
+    <form action="/" method="post">
+        <div class="form-group">
+            <label for="title">Todo Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="title"
+                   placeholder="Enter Todo Title" required>
+        </div>
+        <div class="form-group">
+            <label for="desc">Todo description</label>
+            <input type="text" class="form-control" name="desc" id="desc" placeholder="Enter Todo Description" required>
+        </div>
+        <button type="submit" class="btn btn-primary" >ADD TASK</button>
+    </form>
+</div>
+<div class="container my-3">
+    <hr>
+    <h3>Your Todos</h3>
+
+    {% if allTodos|length==0 %}
+    <div class="alert alert-dark" role="alert">
+        Your Todo List is empty. Add new Todo now!!
+    </div>
+    {% else %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">SrNo</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">DateTime</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in allTodos %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{todo.title}}</td>
+            <td>{{todo.desc}}</td>
+            <td>{{todo.doc}}</td>
+            <th>
+                <a href="/update/{{todo.sno}}" class="btn btn-sm btn-success mx-1">Update</a>
+                <a href="/delete/{{todo.sno}}" class="btn btn-sm btn-danger mx-1">Delete</a>
+            </th>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+</div>
+{% endblock body%}
